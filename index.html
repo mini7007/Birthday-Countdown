@@ -1,58 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Countdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="description"
-        content="Sushil Sharma has vast experience in website designing, development, and optimization, and is also proficient in WordPress. I am in charge of testing and maintaining the applications and websites I develop, as well as the documentation that goes with them." />
-    <meta name="author" content="Sushil Sharma's Birthday" />
-    <meta name="keywords"
-        content="HTML, CSS, Portfolio, Github, Github pages, Freelancer, Website Developement, JavaScript, PHP, Developer, Tailwind, Bootstrap, VSCode, Birthday Countdown, Birthday Counter, Vanilla CSS, Vanilla JS" />
-    <title>Birthday Countdown | Sushil Sharma | How long until Sushil Sharma's birthday?</title>
+    <style>
+        /* Classic Black Background */
+        body {
+            background-color: black !important; /* Ensures dark theme */
+            color: gold;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background 1s ease-in-out;
+        }
+
+        /* Hanging Images */
+        .hanging-image {
+            position: absolute;
+            width: 100px;
+            animation: swing 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            animation: fallConfetti 4s infinite;
+        }
+
+        @keyframes fallConfetti {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Floating Balloons */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            animation: floatBalloon 6s infinite ease-in-out;
+        }
+
+        @keyframes floatBalloon {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Floating Candles */
+        .candle {
+            position: absolute;
+            width: 30px;
+            animation: floatCandle 5s infinite ease-in-out;
+        }
+
+        @keyframes floatCandle {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Hide celebration elements by default */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+<body onclick="enableAudio()"> <!-- Enable audio on first click -->
 
-<body>
-    <main>
-        <section
-            class="w-full h-screen bg-center bg-cover bg-no-repeat bg-[url('https://source.unsplash.com/1024x768/?birthday')] flex items-center justify-center">
-            <div class="backdrop-blur-xl p-8 font-mono">
-                <div id="dateyear" class="dateyear text-center mt-4 text-3xl font-bold text-red-600"></div>
-                <div id="yearold" class="yearold text-center mt-2 text-7xl font-semibold text-gray-700 underline decoration-double"></div>
-                <div id="message"
-                    class="message text-center mt-4 text-4xl text-blue-700 font-semibold">Now
-                    you can
-                    sleep
-                    until your birthday. Hurray!</div>
-                <span class="text-center block mb-4 text-4xl text-purple-600 underline decoration-wavy">The Day of Sushil Sharma</span>
-                <h1 id="birthdayTime" class="text-5xl font-bold text-gray-800 text-center my-4">Birthday Countdown:</h1>
-
-
-                <div id="countdown" class="countdown flex justify-center">
-                    <div class="clock text-center mx-2">
-                        <h2 id="days" class="text-6xl font-bold text-red-600">00</h2>
-                        <small class="text-base text-slate-950">days</small>
-                    </div>
-                    <div class="clock text-center mx-2">
-                        <h2 id="hours" class="text-6xl font-bold text-red-600">00</h2>
-                        <small class="text-base text-slate-950">hours</small>
-                    </div>
-                    <div class="clock text-center mx-2">
-                        <h2 id="minutes" class="text-6xl font-bold text-red-600">00</h2>
-                        <small class="text-base text-slate-950">minutes</small>
-                    </div>
-                    <div class="clock text-center mx-2">
-                        <h2 id="seconds" class="text-6xl font-bold text-red-600">00</h2>
-                        <small class="text-base text-slate-950">seconds</small>
-                    </div>
-                </div>
+    <main class="flex flex-col items-center justify-center h-screen">
+        <h1 class="text-5xl font-bold text-gold">Countdown to Sanz's 28th Birthday! 🎂</h1>
+        <div class="flex justify-center mt-6">
+            <div class="clock mx-4">
+                <h2 id="days" class="text-5xl font-bold">00</h2>
+                <small class="text-xl">Days</small>
             </div>
-        </section>
+            <div class="clock mx-4">
+                <h2 id="hours" class="text-5xl font-bold">00</h2>
+                <small class="text-xl">Hours</small>
+            </div>
+            <div class="clock mx-4">
+                <h2 id="minutes" class="text-5xl font-bold">00</h2>
+                <small class="text-xl">Minutes</small>
+            </div>
+            <div class="clock mx-4">
+                <h2 id="seconds" class="text-5xl font-bold">00</h2>
+                <small class="text-xl">Seconds</small>
+            </div>
+        </div>
     </main>
 
-    <script src="assets\main.js"></script>
-</body>
+    <!-- Hanging Images -->
+    <img src="https://ik.imagekit.io/Myimage/image5.jpg" class="hanging-image" style="top: 10px; left: 10%;" />
+    <img src="https://ik.imagekit.io/Myimage/image7.jpg" class="hanging-image" style="top: 10px; right: 10%;" />
+    <img src="https://ik.imagekit.io/Myimage/image4.jpg" class="hanging-image" style="top: 10px; left: 40%;" />
 
+    <!-- Celebration Elements (Hidden Initially) -->
+    <div id="celebrationEffects" class="hidden">
+        <audio id="birthdayAudio" src="https://ik.imagekit.io/Myimage/happybdaysanz.mp3"></audio>
+    </div>
+
+    <script src="main.js"></script>
+
+    <script>
+        function enableAudio() {
+            let audio = document.getElementById("birthdayAudio");
+            audio.play();
+            document.body.onclick = null; // Prevent multiple clicks
+        }
+    </script>
+
+</body>
 </html>

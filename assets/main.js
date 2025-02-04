@@ -1,71 +1,69 @@
-const days = document.getElementById('days');
-const hours = document.getElementById('hours');
-const minutes = document.getElementById('minutes');
-const seconds = document.getElementById('seconds');
+document.addEventListener("DOMContentLoaded", function () {
+  const body = document.body;
+  const audio = document.getElementById("birthdayAudio");
+  const celebrationEffects = document.getElementById("celebrationEffects");
 
-const countdown = document.getElementById('countdown');
-const birthdayTime = document.getElementById('birthdayTime');
-const refresh = document.getElementById('refresh');
+  // Set the birthday date (5th February 2025 at midnight)
+  const birthdayDate = new Date("February 5, 2025 00:00:00").getTime();
 
-const currentYear = new Date().getFullYear();
+  function updateCountdown() {
+      const now = new Date().getTime();
+      const timeLeft = birthdayDate - now;
 
-const birthday = new Date(`Apr 10 ${currentYear} 00:00:00`);
+      if (timeLeft <= 0) {
+          startCelebration();
+          clearInterval(countdownInterval);
+          return;
+      }
 
-const today = new Date();
-const currentDateTime = new Date(`${today.getMonth()} ${today.getDate()} ${currentYear}`);
-
-//JavaScript Ternary Operator
-const age = currentDateTime < birthday ? currentYear - 1999 - 1 : currentYear - 1999;
-
-// Set background year
-dateyear.innerText = currentYear;
-
-// time values
-const s = 1000
-const m = s * 60
-const h = m * 60
-const d = h * 24
-
-let timerId
-
-// Update countdown time
-function updateCountdown() {
-  const now = new Date();
-
-  //If birthday pass out
-  const nextBirthday = new Date(`Apr 10 ${currentYear + 1} 00:00:00`)
-  
-  // JavaScript Ternary Operator 
-  const timeSpan = (birthday < now) ? nextBirthday - now : birthday - now;
-  const nextAge =  (birthday < now) ? age+1 : age;
-
-
-  const day = Math.floor(timeSpan / d);
-  const hour = Math.floor((timeSpan % d) / h);
-  const minute = Math.floor((timeSpan % h) / m);
-  const second = Math.floor((timeSpan % m) / s);
-
-   const April = now.getMonth() === birthday.getMonth() && now.getDate() === birthday.getDate()
-
-  if (April) {
-    console.log('Happy Birthday Sushil Sharma')
-    message.innerHTML = '<br> Guys and Gals, It gives me great pleasure to notify you that today is my birthday.<br>Happy Birthday!! Hope I had a nice Birthday Bash!!'
-    countdown.style.display = "none"
-    birthdayTime.style.display = "none"
-    yearold.innerText = `${age+1}th Birthday!`;
-    clearInterval(timerId)
-    return
+      document.getElementById("days").innerText = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+      document.getElementById("minutes").innerText = Math.floor((timeLeft / (1000 * 60)) % 60);
+      document.getElementById("seconds").innerText = Math.floor((timeLeft / 1000) % 60);
   }
 
-  else {
-    // Insert values into the DOM
-    days.innerHTML = day;
-    hours.innerHTML = hour < 10 ? '0' + hour : hour;
-    minutes.innerHTML = minute < 10 ? '0' + minute : minute;
-    seconds.innerHTML = second < 10 ? '0' + second : second; 
-    yearold.innerText = `${nextAge}th Birthday!`;
-  }
-}
+  // Start the countdown immediately
+  updateCountdown();
+  let countdownInterval = setInterval(updateCountdown, 1000);
 
-// Run every second
-timerId = setInterval(updateCountdown, 1000);
+  function startCelebration() {
+      body.classList.add("celebration");
+      audio.play();
+      celebrationEffects.classList.remove("hidden");
+
+      for (let i = 0; i < 20; i++) {
+          createBalloon();
+          createConfetti();
+          createCandle();
+      }
+  }
+
+  function createBalloon() {
+      const balloon = document.createElement("img");
+      balloon.src = "https://pngimg.com/uploads/baloons/baloons_PNG4971.png";
+      balloon.classList.add("balloon");
+      balloon.style.left = Math.random() * 100 + "vw";
+      balloon.style.animationDuration = Math.random() * 3 + 4 + "s";
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 5000);
+  }
+
+  function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+  }
+
+  function createCandle() {
+      const candle = document.createElement("img");
+      candle.src = "https://www.freeiconspng.com/uploads/candle-png-21.png";
+      candle.classList.add("candle");
+      candle.style.left = Math.random() * 100 + "vw";
+      candle.style.animationDuration = Math.random() * 5 + 6 + "s";
+      document.body.appendChild(candle);
+      setTimeout(() => candle.remove(), 6000);
+  }
+});
